@@ -26,21 +26,9 @@ let determinePage = () => {
     return [root, site];
 }
 
-let removeTags = (root, tagname, checkvisibility) => {
-    let tags = root.getElementsByTagName(tagname);
-    tags = [...tags];
-    tags.map((t) => {
-        if(checkvisibility && t.textContent.trim() !== "") {
-            return;
-        }
-        t.remove();
-    });
-}
-
 let pageSpecificStuff = (root, site) => {
     switch(site) {
         case "medium": 
-            let elem = root.firstElementChild;
             root.querySelectorAll("img").forEach((i) => {
                 if(!i.src || i.src === "") {
                     i.parentNode.innerHTML = i.nextSibling.innerText;
@@ -68,18 +56,16 @@ let selectContentTags = (root) => {
             return false;
         }
 
-        let xi = ""; 
+        let xi = "";    
         [...x.childNodes].forEach((cn) => { 
             if (cn.nodeType === 3) xi += cn.textContent.trim(); 
         });
 
-        console.log(x);
-        return xi !== "";
+        return x.nodeName === "IMG" || x.nodeName === "FIGURE" || xi !== "";
     });
-
+    tags.forEach((t) => { t.setAttribute("data-selected", "true"); t.id = ""; t.className = ""; t.style = ""; });
     tags = tags.filter((x) => {
-        x.setAttribute("data-selected", "true"); x.id = ""; x.className = ""; x.style = "";
-        return !(x.parentNode && x.parentNode.getAttribute("data-selected") === "true");
+        return x.parentNode.closest("[data-selected='true']") === null;
     });
 
     return tags;
@@ -113,7 +99,7 @@ let createUI = (root) => {
         <div id="readerheader" class="readerhf">
             <span class="rdbl">RDBL</span>
             <span>
-                <span class="fs">
+                <span class="fns">
                     <a href="#" class="dec" data-size="dec">A</a><a href="#" class="inc" data-size="inc">A</a>
                 </span>
                 <span class="colw">
@@ -133,7 +119,7 @@ let createUI = (root) => {
     let contentElem = readElem.querySelector("#readercontent");
 
     let fsizes = [12, 16, 18, 22, 24];
-    headerElem.querySelectorAll(".fs > *").forEach((a) => {
+    headerElem.querySelectorAll(".fns > *").forEach((a) => {
         a.addEventListener("click", (evt) => {
             let id = a.getAttribute("data-size");
             let idx = readElem.getAttribute("data-fi") ?? 2;

@@ -3,7 +3,7 @@
 chrome.runtime.onInstalled.addListener(function () {
     chrome.contextMenus.create({
         "id": "sampleContextMenu",
-        "title": "Read it"
+        "title": "Read."
     });
 });
 
