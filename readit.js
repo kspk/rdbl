@@ -4,16 +4,20 @@ let fonts = [
 ];
 
 let checkMedium = () => {
-    let ist = [...document.getElementsByTagName("script")].find((s) => s.src.indexOf("medium.com") > 0);
-    return ist 
+    return [...document.getElementsByTagName("script")].find((s) => s.src.indexOf("medium.com") > 0) 
         ? [document.getElementById("root").querySelector("article"), "medium"]
         : [document.body, ""];
 }
 
 let checkAtd = () => {
-    let ist = document.domain === "www.allthingsdistributed.com";
-    return ist 
+    return document.domain === "www.allthingsdistributed.com" 
         ? [document.getElementById("container"), "atd"]
+        : [document.body, ""];
+}
+
+let checkWp = () => {
+    return window.location.hostname.indexOf("wikipedia") >= 0
+        ? [document.getElementById("content"), "wp"]
         : [document.body, ""];
 }
 
@@ -22,6 +26,7 @@ let determinePage = () => {
 
     if (site === "") [root, site] = checkMedium();
     if (site === "") [root, site] = checkAtd();
+    if (site === "") [root, site] = checkWp();
 
     return [root, site];
 }
@@ -41,33 +46,38 @@ let pageSpecificStuff = (root, site) => {
             });
             break;
         case "atd":
-            root.querySelector("[id='beta']").remove();
+            break;
+        case "wp":
             break;
     }
 }
 
-let isHidden = (elem) => {
-    return elem.style.display === "none" || elem.style.visibility === "hidden";
-}
-
 let selectContentTags = (root) => {
-    let tags = [...root.querySelectorAll("noscript, div, p, section, article, span, em, h1, h2, h3, h4, h5, h6, img, figure, figcaption")].filter((x) => { 
-        if (isHidden(x)) {
+    let ctags = "noscript, div, p, section, article, span, em, h1, h2, h3, h4, h5, h6, img, svg, figure, figcaption, table, ul, ol";
+    let itags = ["IMG", "SVG"];
+    let ictags = ["H1", "H2", "H3", "H4", "H5", "H6", "TABLE", "FIGURE", "FIGCAPTION", "UL", "OL"]
+    
+    let tags = [...root.querySelectorAll(ctags)].filter((x) => { 
+        if (x.style.display === "none" || x.style.visibility === "hidden") {
             return false;
         }
 
-        let xi = "";    
+        let xi = "";
+        let xci = "";
         [...x.childNodes].forEach((cn) => { 
-            if (cn.nodeType === 3) xi += cn.textContent.trim(); 
+            if (cn.nodeType === 3) xi += cn.textContent.trim();
+            else if(cn.nodeType === 1) xci += cn.textContent.trim();
         });
 
-        return x.nodeName === "IMG" || x.nodeName === "FIGURE" || xi !== "";
+        return itags.indexOf(x.nodeName) >= 0
+            || (ictags.indexOf(x.nodeName) >= 0 && xci !== "")
+            || xi !== "";
     });
     tags.forEach((t) => { t.setAttribute("data-selected", "true"); t.id = ""; t.className = ""; t.style = ""; });
     tags = tags.filter((x) => {
         return x.parentNode.closest("[data-selected='true']") === null;
     });
-
+    
     return tags;
 }
 
@@ -151,14 +161,10 @@ let createUI = (root) => {
     headerElem.querySelectorAll(".ld > *").forEach((a) => {
         a.addEventListener("click", (evt) => {
             if(a.innerText.toLowerCase() === "dark") {
-                readElem.style.backgroundColor = "#333333";
-                readElem.style.color = "#FFFFFF";
-                contentElem.style.backgroundColor = "#000000"
+                readElem.classList.add("dark");
             }
             else {
-                readElem.style.backgroundColor = "#F1F1F1";
-                readElem.style.color = "#000000";
-                contentElem.style.backgroundColor = "#FFFFFF"
+                readElem.classList.remove("dark");
             }
 
             evt.preventDefault();

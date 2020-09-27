@@ -6,18 +6,39 @@
     height: 100vh; 
     overflow: auto; 
     z-index: 500; 
+    text-align: left;
     background-color: #F1F1F1; 
+    color: #000000;
 }
+
+.readerroot.dark {
+    background-color: #1f1f1f;
+    color: #FFFFFF;
+}
+
+.readerroot a, 
+.readerroot a:hover, 
+.readerroot a:active, 
+.readerroot a:visited {
+    color: inherit;
+}
+
+body > *:not(.readerroot) {
+    display: none;
+} 
 
 .readercontent { 
     width: 100%; 
     max-width: 800px; 
     margin: auto; 
     padding: 2em; 
-    background-color: #FFFFFF; 
     font-family: 'Libre Baskerville', serif; 
+    background-color: #FFFFFF; 
 }
 
+.readerroot.dark .readercontent {
+    background-color: #000000;
+}
 
 .readercontent > * { 
     margin-bottom: 1em; 
@@ -36,7 +57,29 @@
 }
 
 .readercontent img { 
-    display: block; margin: 1em auto; max-width: 100%; 
+    display: block; 
+    margin: 1em auto; 
+    max-width: 100%; 
+}
+
+.readercontent table img,
+.readercontent li img,
+.readercontent a img {
+    display: inline-block;
+    margin: 0 6px;
+    max-width: 100%;
+}
+
+.readercontent table {
+    border-collapse: collapse;
+}
+.readercontent tr {
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+}
+.readercontent th,
+.readercontent td {
+    padding: 6px;
 }
 
 .readerhf { 
@@ -70,40 +113,34 @@
     text-align: center;
     vertical-align: middle;
 }
-
-.readerhf .fns .inc { 
+.readerhf .fns :first-child,
+.readerhf .colw :first-child,
+.readerhf .ld :first-child {
+    border-bottom-left-radius: 6px; 
+    border-top-left-radius: 6px; 
+}
+.readerhf .fns :last-child,
+.readerhf .colw :last-child,
+.readerhf .ld :last-child {
     border-bottom-right-radius: 6px; 
     border-top-right-radius: 6px; 
 }
 
+
+.readerhf .fns .inc { }
+
 .readerhf .fns .dec { 
-    border-bottom-left-radius: 6px; 
-    border-top-left-radius: 6px; 
     font-size: 12px;
 }
 
-.readerhf .colw .cws { 
-    border-bottom-left-radius: 6px; 
-    border-top-left-radius: 6px; 
-}
+.readerhf .colw .cws { }
 
 .readerhf .colw .cwm { }
 
-.readerhf .colw .cwl { 
-    border-bottom-right-radius: 6px; 
-    border-top-right-radius: 6px; 
-}
+.readerhf .colw .cwl { }
 
-.readerhf .ld .ldl { 
+.readerhf .ld * { 
     width: 44px; 
-    border-bottom-left-radius: 6px; 
-    border-top-left-radius: 6px; 
     font-size: 12px;
 }
 
-.readerhf .ld .ldd { 
-    width: 44px; 
-    border-bottom-right-radius: 6px; 
-    border-top-right-radius: 6px; 
-    font-size: 12px;
-}
