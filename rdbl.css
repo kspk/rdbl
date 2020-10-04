@@ -7,6 +7,9 @@
     overflow: auto; 
     z-index: 500; 
     text-align: left;
+}
+
+.readerroot.light {
     background-color: #F1F1F1; 
     color: #000000;
 }
@@ -15,6 +18,26 @@
     background-color: #1f1f1f;
     color: #FFFFFF;
 }
+
+.readerroot.sml > .readercontent,
+.readerroot.sml > .readerhf {
+    max-width: 640px;
+}
+.readerroot.med > .readercontent,
+.readerroot.med > .readerhf {
+    max-width: 960px;
+}
+.readerroot.lrg > .readercontent,
+.readerroot.lrg > .readerhf {
+    max-width: 1200px;
+}
+
+.readerroot.fnt0 { font-size: 12px; }
+.readerroot.fnt1 { font-size: 16px; }
+.readerroot.fnt2 { font-size: 18px; }
+.readerroot.fnt3 { font-size: 22px; }
+.readerroot.fnt4 { font-size: 24px; }
+
 
 .readerroot a, 
 .readerroot a:hover, 
@@ -29,7 +52,7 @@ body > *:not(.readerroot) {
 
 .readercontent { 
     width: 100%; 
-    max-width: 800px; 
+    max-width: 960px; 
     margin: auto; 
     padding: 2em; 
     font-family: 'Libre Baskerville', serif; 

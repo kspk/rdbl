@@ -3,20 +3,26 @@ let fonts = [
     ["Bebas Neue + Libre Baskerville", "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville&display=swap" ]
 ];
 
-let checkMedium = () => {
+let checkFb = () => {
+    return document.domain.indexOf("facebook") >= 0
+    ? [document.body, "fb"]
+    : [document.body, ""];
+}
+
+let checkMdm = () => {
     return [...document.getElementsByTagName("script")].find((s) => s.src.indexOf("medium.com") > 0) 
-        ? [document.getElementById("root").querySelector("article"), "medium"]
+        ? [document.getElementById("root").querySelector("article"), "mdm"]
         : [document.body, ""];
 }
 
 let checkAtd = () => {
-    return document.domain === "www.allthingsdistributed.com" 
+    return document.domain.indexOf(".allthingsdistributed.") >= 0
         ? [document.getElementById("container"), "atd"]
         : [document.body, ""];
 }
 
 let checkWp = () => {
-    return window.location.hostname.indexOf("wikipedia") >= 0
+    return document.domain.indexOf(".wikipedia.") >= 0
         ? [document.getElementById("content"), "wp"]
         : [document.body, ""];
 }
@@ -24,9 +30,10 @@ let checkWp = () => {
 let determinePage = () => {
     let [root, site] = [document.body, ""];
 
-    if (site === "") [root, site] = checkMedium();
-    if (site === "") [root, site] = checkAtd();
-    if (site === "") [root, site] = checkWp();
+    if (!site) [root, site] = checkFb();
+    if (!site) [root, site] = checkMdm();
+    if (!site) [root, site] = checkAtd();
+    if (!site) [root, site] = checkWp();
 
     return [root, site];
 }
@@ -92,20 +99,38 @@ let changeFont = (idx) => {
         link.href = f[1];
     }
 }
- 
+
+let updateRdblClasses = (rdblElem, addClass, removeClass) => {
+    rdblElem.classList.remove(...removeClass);
+    rdblElem.classList.add(addClass);
+}
+
+let changeWidth = (rdblElem, widthClass) => {
+    updateRdblClasses(rdblElem, widthClass, ["sml", "med", "lrg"])
+}
+
+let changeMode = (rdblElem, modeClass) => {
+    updateRdblClasses(rdblElem, modeClass, ["light", "dark"]);
+}
+
+let changeFontSize = (rdblElem, fntIdx) => {
+    let fontClasses = ["fnt0", "fnt1", "fnt2", "fnt3", "fnt4"];
+    updateRdblClasses(rdblElem, fontClasses[fntIdx], ["fnt0", "fnt1", "fnt2", "fnt3", "fnt4"]);
+}
+
 let createUI = (root) => {
     changeFont(0);
 
     let tags = selectContentTags(root);
 
-    let readElem = document.createElement("div")
-    document.body.appendChild(readElem);
+    let rdblElem = document.createElement("div")
+    document.body.appendChild(rdblElem);
     document.body.style = "overflow: hidden; height: 100vh; font-size: 18px;";
-    readElem.id = "readerroot";
-    readElem.className = "readerroot";
-    readElem.setAttribute("data-fi", "2");
+    rdblElem.id = "readerroot";
+    rdblElem.className = "readerroot";
+    rdblElem.setAttribute("data-fi", "2");
     
-    readElem.innerHTML = `
+    rdblElem.innerHTML = `
         <div id="readerheader" class="readerhf">
             <span class="rdbl">RDBL</span>
             <span>
@@ -113,7 +138,7 @@ let createUI = (root) => {
                     <a href="#" class="dec" data-size="dec">A</a><a href="#" class="inc" data-size="inc">A</a>
                 </span>
                 <span class="colw">
-                    <a href="#" class="cws" data-width="640">S</a><a href="#" class="cwm" data-width="800">M</a><a href="#" class="cwl" data-width="960">L</a>
+                    <a href="#" class="cws" data-width="sml">S</a><a href="#" class="cwm" data-width="med">M</a><a href="#" class="cwl" data-width="lrg">L</a>
                 </span>
                 <span class="ld">
                     <a href="#" class="ldl">Light</a><a href="#" class="ldd">Dark</a>
@@ -125,51 +150,46 @@ let createUI = (root) => {
         <div id="readerfooter" class="readerhf">
         </div>
     `;
-    let headerElem = readElem.querySelector("#readerheader");
-    let contentElem = readElem.querySelector("#readercontent");
+    let headerElem = rdblElem.querySelector("#readerheader");
+    let contentElem = rdblElem.querySelector("#readercontent");
 
-    let fsizes = [12, 16, 18, 22, 24];
+    let fontSizeClick = (evt) => {
+        let id = evt.target.getAttribute("data-size");
+        let idx = +rdblElem.getAttribute("data-fi") ?? 2;
+        idx = (id === "inc" && idx < 4)
+            ? idx + 1
+            : (id === "dec" && idx > 0)
+                ? idx - 1
+                : idx;
+
+        changeFontSize(rdblElem, idx);
+        rdblElem.setAttribute("data-fi", idx);
+
+        evt.preventDefault();
+        return false;
+    }
     headerElem.querySelectorAll(".fns > *").forEach((a) => {
-        a.addEventListener("click", (evt) => {
-            let id = a.getAttribute("data-size");
-            let idx = readElem.getAttribute("data-fi") ?? 2;
-            if(id === "inc" && idx < 4) {
-                idx++;
-                readElem.style.fontSize = fsizes[idx] + "px";
-            }
-            else if(id === "dec" && idx > 0) {
-                idx--;
-                readElem.style.fontSize = fsizes[idx] + "px";
-            }
-
-            readElem.setAttribute("data-fi", idx);
-            evt.preventDefault();
-            return false;
-        });
+        a.addEventListener("click", fontSizeClick);
     });
 
+    let widthClick = (evt) => {
+        changeWidth(rdblElem, evt.target.getAttribute("data-width"));
+
+        evt.preventDefault();
+        return false;
+    };
     headerElem.querySelectorAll(".colw > *").forEach((a) => {
-        a.addEventListener("click", (evt) => {
-            headerElem.style.maxWidth = a.getAttribute("data-width") + "px";
-            contentElem.style.maxWidth = a.getAttribute("data-width") + "px";
-
-            evt.preventDefault();
-            return false;
-        });
+        a.addEventListener("click", widthClick);
     });
 
-    headerElem.querySelectorAll(".ld > *").forEach((a) => {
-        a.addEventListener("click", (evt) => {
-            if(a.innerText.toLowerCase() === "dark") {
-                readElem.classList.add("dark");
-            }
-            else {
-                readElem.classList.remove("dark");
-            }
+    let uimodeClick = (evt) => {
+        changeMode(rdblElem, evt.target.innerText.toLowerCase().trim());
 
-            evt.preventDefault();
-            return false;
-        });
+        evt.preventDefault();
+        return false;
+    };
+    headerElem.querySelectorAll(".ld > *").forEach((a) => {
+        a.addEventListener("click", uimodeClick);
     });
 
     tags.forEach((t) => {
@@ -182,13 +202,14 @@ let createUI = (root) => {
             contentElem.appendChild(t);
         }
     });
-    return readElem;
+    
+    return rdblElem;
 }
 
-let readit = () => {
+let rdbl = () => {
     let [root, site] = determinePage();
-    let readroot = createUI(root);
+    let rdblroot = createUI(root);
 
-    pageSpecificStuff(readroot, site);
+    pageSpecificStuff(rdblroot, site);
 }
-readit();
+rdbl();
