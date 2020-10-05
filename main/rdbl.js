@@ -1,8 +1,4 @@
 
-let fonts = [
-    ["Bebas Neue + Libre Baskerville", "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville&display=swap" ]
-];
-
 let checkFb = () => {
     return document.domain.indexOf("facebook") >= 0
     ? [document.body, "fb"]
@@ -119,15 +115,13 @@ let changeFontSize = (rdblElem, fntIdx) => {
 }
 
 let createUI = (root) => {
-    changeFont(0);
-
     let tags = selectContentTags(root);
 
     let rdblElem = document.createElement("div")
     document.body.appendChild(rdblElem);
     document.body.style = "overflow: hidden; height: 100vh; font-size: 18px;";
     rdblElem.id = "readerroot";
-    rdblElem.className = "readerroot";
+    rdblElem.className = "readerroot light";
     rdblElem.setAttribute("data-fi", "2");
     
     rdblElem.innerHTML = `

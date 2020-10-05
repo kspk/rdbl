@@ -1,0 +1,36 @@
+/* latin-ext */
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Bebas Neue Regular'), 
+       local('BebasNeue-Regular'), 
+       url(chrome-extension://__MSG_@@extension_id__/main/fonts/BebasNeue-Regular.ttf) format('woff2');
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Libre Baskerville';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Libre Baskerville Regular'), 
+       local('LibreBaskerville-Regular'), 
+       url(chrome-extension://__MSG_@@extension_id__/main/fonts/LibreBaskerville-Regular.ttf) format('woff2');
+}
+
+.readercontent { 
+    font-family: 'Libre Baskerville', serif; 
+}
+.readercontent > h1, 
+.readercontent > h2, 
+.readercontent > h3, 
+.readercontent > h4, 
+.readercontent > h5, 
+.readercontent > h6 { 
+    font-family: 'Bebas Neue', sans-serif; 
+}
+
+.readerhf { 
+    font-family: 'Bebas Neue', sans-serif; 
+}

@@ -9,6 +9,10 @@
     text-align: left;
 }
 
+body > *:not(.readerroot) {
+    display: none;
+} 
+
 .readerroot.light {
     background-color: #F1F1F1; 
     color: #000000;
@@ -23,10 +27,12 @@
 .readerroot.sml > .readerhf {
     max-width: 640px;
 }
+
 .readerroot.med > .readercontent,
 .readerroot.med > .readerhf {
     max-width: 960px;
 }
+
 .readerroot.lrg > .readercontent,
 .readerroot.lrg > .readerhf {
     max-width: 1200px;
@@ -46,16 +52,14 @@
     color: inherit;
 }
 
-body > *:not(.readerroot) {
-    display: none;
-} 
-
 .readercontent { 
     width: 100%; 
     max-width: 960px; 
     margin: auto; 
     padding: 2em; 
-    font-family: 'Libre Baskerville', serif; 
+}
+
+.readerroot.light .readercontent {
     background-color: #FFFFFF; 
 }
 
@@ -76,7 +80,6 @@ body > *:not(.readerroot) {
     margin-top: 1em; 
     margin-bottom: .5em; 
     text-transform: uppercase; 
-    font-family: 'Bebas Neue', sans-serif; 
 }
 
 .readercontent img { 
@@ -95,11 +98,15 @@ body > *:not(.readerroot) {
 
 .readercontent table {
     border-collapse: collapse;
+    max-width: 100%;
+    overflow: scroll;
 }
+
 .readercontent tr {
     border-bottom: 1px solid #ccc;
     text-align: left;
 }
+
 .readercontent th,
 .readercontent td {
     padding: 6px;
@@ -136,12 +143,14 @@ body > *:not(.readerroot) {
     text-align: center;
     vertical-align: middle;
 }
+
 .readerhf .fns :first-child,
 .readerhf .colw :first-child,
 .readerhf .ld :first-child {
     border-bottom-left-radius: 6px; 
     border-top-left-radius: 6px; 
 }
+
 .readerhf .fns :last-child,
 .readerhf .colw :last-child,
 .readerhf .ld :last-child {
