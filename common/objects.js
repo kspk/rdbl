@@ -15,6 +15,12 @@ let fonts = [
         "title": "DM Serif Display",
         "text": "Open Sans",
         "cssUrl": "main/font2.css"
+    },
+    {
+        "name": "Comic Zine & Patrick Hand",
+        "title": "Comic Zine OT",
+        "text": "Patrick Hand",
+        "cssUrl": "main/font3.css"
     }
 ];
 

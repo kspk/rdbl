@@ -19,7 +19,6 @@
     }
 }
 
-/* latin-ext */
 @font-face {
   font-family: 'Bebas Neue';
   font-style: normal;
@@ -29,7 +28,7 @@
        local('BebasNeue-Regular'), 
        url(chrome-extension://__MSG_@@extension_id__/main/fonts/BebasNeue-Regular.ttf) format('woff2');
 }
-/* cyrillic-ext */
+
 @font-face {
   font-family: 'Libre Baskerville';
   font-style: normal;
@@ -40,7 +39,6 @@
        url(chrome-extension://__MSG_@@extension_id__/main/fonts/LibreBaskerville-Regular.ttf) format('woff2');
 }
 
-/* latin-ext */
 @font-face {
   font-family: 'DM Serif Display';
   font-style: normal;
@@ -50,7 +48,7 @@
        local('DMSerifDisplay-Regular'), 
        url(chrome-extension://__MSG_@@extension_id__/main/fonts/DMSerifDisplay-Regular.ttf) format('woff2');
 }
-/* cyrillic-ext */
+
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
@@ -59,6 +57,26 @@
   src: local('Open Sans Regular'), 
        local('OpenSans-Regular'), 
        url(chrome-extension://__MSG_@@extension_id__/main/fonts/OpenSans-Regular.ttf) format('woff2');
+}
+
+@font-face {
+  font-family: 'Comic Zine OT';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Comic Zine OT'), 
+       local('comic_zine_ot'), 
+       url(chrome-extension://__MSG_@@extension_id__/main/fonts/comic_zine_ot.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Patrick Hand';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Patrick Hand Regular'), 
+       local('PatrickHand-Regular'), 
+       url(chrome-extension://__MSG_@@extension_id__/main/fonts/PatrickHand-Regular.ttf) format('truetype');
 }
 
 body {

@@ -1,0 +1,42 @@
+
+@font-face {
+  font-family: 'Comic Zine OT';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Comic Zine OT'), 
+       local('comic_zine_ot'), 
+       url(chrome-extension://__MSG_@@extension_id__/main/fonts/comic_zine_ot.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Patrick Hand';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Patrick Hand Regular'), 
+       local('PatrickHand-Regular'), 
+       url(chrome-extension://__MSG_@@extension_id__/main/fonts/PatrickHand-Regular.ttf) format('truetype');
+}
+
+.rdblcontent { 
+    font-family: 'Patrick Hand', sans-serif; 
+}
+.rdblcontent > h1, 
+.rdblcontent > h2, 
+.rdblcontent > h3, 
+.rdblcontent > h4, 
+.rdblcontent > h5, 
+.rdblcontent > h6 { 
+    font-family: 'Comic Zine OT', serif; 
+}
+
+.rdblhf { 
+    font-family: 'Comic Zine OT', serif; 
+}
+
+.rdblroot.fnt0 { font-size: 14px; }
+.rdblroot.fnt1 { font-size: 18px; }
+.rdblroot.fnt2 { font-size: 20px; }
+.rdblroot.fnt3 { font-size: 24px; }
+.rdblroot.fnt4 { font-size: 28px; }

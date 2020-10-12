@@ -4,6 +4,7 @@ if(!window["rdbl.state"]) {
 
     let js = document.createElement("script");
     document.body.appendChild(js);
+    js.type = "module";
     js.src = chrome.runtime.getURL("main/rdbl.js");
 
     let css = document.createElement("link");

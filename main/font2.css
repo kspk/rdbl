@@ -1,4 +1,4 @@
-/* latin-ext */
+
 @font-face {
   font-family: 'DM Serif Display';
   font-style: normal;
@@ -8,7 +8,7 @@
        local('DMSerifDisplay-Regular'), 
        url(chrome-extension://__MSG_@@extension_id__/main/fonts/DMSerifDisplay-Regular.ttf) format('woff2');
 }
-/* cyrillic-ext */
+
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
@@ -19,18 +19,24 @@
        url(chrome-extension://__MSG_@@extension_id__/main/fonts/OpenSans-Regular.ttf) format('woff2');
 }
 
-.readercontent { 
+.rdblcontent { 
     font-family: 'Open Sans', serif; 
 }
-.readercontent > h1, 
-.readercontent > h2, 
-.readercontent > h3, 
-.readercontent > h4, 
-.readercontent > h5, 
-.readercontent > h6 { 
+.rdblcontent > h1, 
+.rdblcontent > h2, 
+.rdblcontent > h3, 
+.rdblcontent > h4, 
+.rdblcontent > h5, 
+.rdblcontent > h6 { 
     font-family: 'DM Serif Display', sans-serif; 
 }
 
-.readerhf { 
+.rdblhf { 
     font-family: 'DM Serif Display', sans-serif; 
 }
+
+.rdblroot.fnt0 { font-size: 12px; }
+.rdblroot.fnt1 { font-size: 16px; }
+.rdblroot.fnt2 { font-size: 18px; }
+.rdblroot.fnt3 { font-size: 22px; }
+.rdblroot.fnt4 { font-size: 24px; }
