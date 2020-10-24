@@ -4,7 +4,8 @@ let checkers = [
     () => { return document.domain.indexOf(".allthingsdistributed.com") >= 0 ? "atd" : "def"; },
     () => { return document.domain.indexOf(".wikipedia.") >= 0 ? "wpda" : "def" },
     () => { return document.domain.indexOf("developer.mozilla.org") >= 0 ? "mdn" : "def" },
-    () => { return document.domain.indexOf(".businessinsider.com") >= 0 ? "bi" : "def" }
+    () => { return document.domain.indexOf(".businessinsider.com") >= 0 ? "bi" : "def" },
+    () => { return document.domain.indexOf("techcrunch.com") >= 0 ? "tc" : "def" }
 ];
 
 let handlers = {
@@ -70,6 +71,17 @@ let handlers = {
                     d.className = ""; 
                     d.style = "";
                 });
+            }
+        }
+    },
+    "tc" /* businessinsider.com */: () => {
+        return {
+            "root": document.querySelector("article.article-container"),
+            "filter": (node) => {
+                return node.classList.contains("newsletter-signup-block")
+                    || node.classList.contains("article-footer")
+                    || node.classList.contains("article__related-links")
+                    || node.classList.contains("screen-reader-text");
             }
         }
     },
