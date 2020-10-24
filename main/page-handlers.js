@@ -3,7 +3,8 @@ let checkers = [
     () => { return [...document.getElementsByTagName("script")].find((s) => s.src.indexOf("medium.com") > 0) ? "mdm" : "def"; },
     () => { return document.domain.indexOf(".allthingsdistributed.com") >= 0 ? "atd" : "def"; },
     () => { return document.domain.indexOf(".wikipedia.") >= 0 ? "wpda" : "def" },
-    () => { return document.domain.indexOf("developer.mozilla.org") >= 0 ? "mdn" : "def" }
+    () => { return document.domain.indexOf("developer.mozilla.org") >= 0 ? "mdn" : "def" },
+    () => { return document.domain.indexOf(".businessinsider.com") >= 0 ? "bi" : "def" }
 ];
 
 let handlers = {
@@ -52,6 +53,25 @@ let handlers = {
         return {
             "root": document.querySelector("main")
         };
+    },
+    "bi" /* businessinsider.com */: () => {
+        return {
+            "root": document.querySelector("section#l-content"),
+            "filter": (node) => {
+                return node.hasAttribute("data-bi-ad")
+                    || node.id === "l-rightrail"
+                    || node.classList.contains("post-content-more")
+                    || node.classList.contains("post-content-category")
+                    || node.classList.contains("post-content-bottom")
+                    || node.classList.contains("mobile-sticky-container");
+            },
+            "postrdbl": (root) => { 
+                [...root.querySelectorAll("div.lazy-holder")].forEach((d) => {
+                    d.className = ""; 
+                    d.style = "";
+                });
+            }
+        }
     },
     "def": () => {
         return {
