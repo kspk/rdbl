@@ -7,7 +7,7 @@ import {
 } from "../common/objects.js";
 
 let options = new Settings();
-let fetch_settings_call_rdbl = (tab) => {
+let fetchSettingsCallRdbl = (tab) => {
     getLocalSettings(options, (result) => {
         options = result;
         rdbl_invoke(tab);
@@ -32,7 +32,7 @@ chrome.runtime.onInstalled.addListener(() => {
     });
 });
 
-chrome.browserAction.onClicked.addListener((tab) => fetch_settings_call_rdbl(tab));
-chrome.contextMenus.onClicked.addListener((info, tab) => fetch_settings_call_rdbl(tab));
+chrome.browserAction.onClicked.addListener((tab) => fetchSettingsCallRdbl(tab));
+chrome.contextMenus.onClicked.addListener((info, tab) => fetchSettingsCallRdbl(tab));
 
 

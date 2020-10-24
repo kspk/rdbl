@@ -11,15 +11,15 @@ let handlers = {
     "site": () => {
         return {
             "root": document.querySelector(""),
-            "filter": (root) => { },
+            "includeTags": [],
+            "filter": (node) => { },
             "postrdbl": (root) => { }
         };
     }
     */
-    "mdm": () => {
+    "mdm" /* medium.com */: () => {
         return {
             "root": document.querySelector("#root").querySelector("article"),
-            "filter": (root) => { },
             "postrdbl": (root) => {
                 root.querySelectorAll("img").forEach((i) => {
                     if (!i.src || i.src === "") {
@@ -34,31 +34,30 @@ let handlers = {
             }
         };
     },
-    "atd": () => {
+    "atd" /* allthingsdistributed.com */ : () => {
         return {
-            "root": document.querySelector("#container"),
-            "filter": (root) => { },
-            "postrdbl": (root) => { }
+            "root": document.querySelector("#container")
         };
     },
-    "wpda": () => {
+    "wpda" /* wikipedia.* */ : () => {
         return {
             "root": document.querySelector("#content"),
-            "filter": (root) => { },
-            "postrdbl": (root) => { }
+            "filter": (node) => { 
+                return node.id === "siteNotice"
+                    || node.classList.contains("mw-editsection");
+             }
         };
     },
-    "mdn": () => {
+    "mdn" /* developer.mozilla.org" */ : () => {
         return {
-            "root": document.querySelector("main"),
-            "filter": (root) => { },
-            "postrdbl": (root) => { }
+            "root": document.querySelector("main")
         };
     },
     "def": () => {
         return {
             "root": document.body,
-            "filter": (root) => { },
+            "includeTags": [],
+            "filter": (node) => { },
             "postrdbl": (root) => { }
         }
     }
@@ -70,7 +69,7 @@ let getPageHandler = () => {
     while(hid === "def" && i < checkers.length)
         hid = checkers[i++]();
 
-    return handlers[hid]();
+    return { ...(handlers["def"]()), ...(handlers[hid]()) };
 }
 
 export { getPageHandler }

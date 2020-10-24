@@ -1,5 +1,6 @@
 
-body > *:not(.rdblroot) { display: none; } 
+body.rdbld { overflow: hidden; height: 100vh; font-size: 18px; }
+body.rdbld > *:not(.rdblroot) { display: none; } 
 * { box-sizing: border-box; }
 
 
@@ -125,6 +126,21 @@ body > *:not(.rdblroot) { display: none; }
 }
 
 .rdblcontent *[aria-hidden] { display: none; }
+
+.rdblcontent figcaption {
+    font-size: .6rem;
+    text-align: center;
+}
+
+.rdblcontent code {
+    margin: .5rem 0;
+    font-family: monospace;
+}
+
+.rdblcontent blockquote {
+    display: block;
+    padding: 1rem;
+}
 
 .rdblhf { 
     width: 100%; 
