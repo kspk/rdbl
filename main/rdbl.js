@@ -19,6 +19,19 @@ let updateClasses = (elem, addClass, removeClass) => {
 }
 
 /**
+ * @function setupStyle setup a style block with css string
+ * 
+ * @param {string} id identifier for the page handler, to use as style id 
+ * @param {string} css CSS string to setup a style tag
+ */
+let setupStyle = (id, css) => {
+    let s = document.createElement("style");
+    document.head.appendChild(s);
+    s.id = "style-" + id;
+    s.appendChild(document.createTextNode(css));
+}
+
+/**
  * @function changeWidth udpate the width of the reader page
  * 
  * @param {DOMElement} rdblElem element for the reader page
@@ -163,12 +176,23 @@ let createUI = (pageHandler) => {
  * @function rdbl main content script for reader 
  */
 let rdbl = () => {
-    // Get the page handler, and setup readable ui
+    // Get the page handler, and start setting up readable ui
     let ph = getPageHandler();
+
+    // Call any page specific pre render processor
+    if (typeof ph.prerdbl === 'function')
+        ph.prerdbl(ph.root);
+
+    // Fetch the content tags and set up the rdbl ui and controls
     let rdblroot = createUI(ph);
 
+    // Apply page specific styles 
+    if (ph.css) 
+        setupStyle(ph.id, ph.css);
+    
     // Call any page specific post render processor
-    ph.postrdbl(rdblroot);
+    if(typeof ph.postrdbl === 'function')
+        ph.postrdbl(rdblroot);
 
     // Apply this last class to hide every other element beyond the rdbl
     updateClasses(document.body, "rdbld", []);

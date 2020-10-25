@@ -14,7 +14,9 @@ let handlers = {
         return {
             "root": document.querySelector(""),
             "includeTags": [],
+            "pageCss": "",
             "filter": (node) => { },
+            "prerdbl": (root) => { },
             "postrdbl": (root) => { }
         };
     }
@@ -89,7 +91,9 @@ let handlers = {
         return {
             "root": document.body,
             "includeTags": [],
+            "css": "",
             "filter": (node) => { },
+            "prerdbl": (root) => { },
             "postrdbl": (root) => { }
         }
     }
@@ -101,7 +105,7 @@ let getPageHandler = () => {
     while(hid === "def" && i < checkers.length)
         hid = checkers[i++]();
 
-    return { ...(handlers["def"]()), ...(handlers[hid]()) };
+    return { "id": hid, ...(handlers["def"]()), ...(handlers[hid]()) };
 }
 
 export { getPageHandler }
