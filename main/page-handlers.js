@@ -76,7 +76,7 @@ let handlers = {
             }
         }
     },
-    "tc" /* businessinsider.com */: () => {
+    "tc" /* techcrunch.com */: () => {
         return {
             "root": document.querySelector("article.article-container"),
             "filter": (node) => {

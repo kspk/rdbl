@@ -14,10 +14,17 @@ let fetchSettingsCallRdbl = (tab) => {
     });
 }
 
-let rdbl_invoke = (tab) => {    
+let rdbl_invoke = (tab) => { 
+    let extensions = `
+        window["rdbl.checkers"] = ${!(options.checkerCode) ? [] : options.checkerCode};
+        window["rdbl.handlers"] = ${!(options.handlerCode) ? {} : options.handlerCode};
+    `;
     chrome.tabs.executeScript ({
-        code: `window["rdbl.checkers"] = !(${options.checkerCode}) ? [] : ${options.checkerCode}; 
-               window["rdbl.handlers"] = !(${options.handlerCode})? {} : ${options.handlerCode};`
+        code: `
+            let js = document.createElement("script");
+            document.body.appendChild(js);
+            js.appendChild(document.createTextNode(\`${extensions}\`));
+        `
     });
 
     chrome.tabs.executeScript({
