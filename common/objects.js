@@ -1,6 +1,8 @@
 
 class Settings {
     fidx = 0;
+    checkerCode = "";
+    handlerCode = "";
 }
 
 let fonts = [

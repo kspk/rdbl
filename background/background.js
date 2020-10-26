@@ -11,10 +11,15 @@ let fetchSettingsCallRdbl = (tab) => {
     getLocalSettings(options, (result) => {
         options = result;
         rdbl_invoke(tab);
-    })
+    });
 }
 
-let rdbl_invoke = (tab) => {
+let rdbl_invoke = (tab) => {    
+    chrome.tabs.executeScript ({
+        code: `window["rdbl.checkers"] = !(${options.checkerCode}) ? [] : ${options.checkerCode}; 
+               window["rdbl.handlers"] = !(${options.handlerCode})? {} : ${options.handlerCode};`
+    });
+
     chrome.tabs.executeScript({
         file: "background/rdbl_start.js"
     });

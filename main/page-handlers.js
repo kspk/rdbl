@@ -100,12 +100,21 @@ let handlers = {
 }
 
 let getPageHandler = () => {
+    let [checkersExt, handlersExt] = getPageHandlerExtensions();
+    let c = [...checkersExt, ...checkers];
+    let h = {...handlers, ...handlersExt};
+
     let hid = "def";
     let i = 0;
-    while(hid === "def" && i < checkers.length)
-        hid = checkers[i++]();
+    while(hid === "def" && i < c.length)
+        hid = c[i++]();
 
-    return { "id": hid, ...(handlers["def"]()), ...(handlers[hid]()) };
+    return { "id": hid, ...(h["def"]()), ...(h[hid]()) };
+}
+
+let getPageHandlerExtensions = () => {
+    return [!(window["rdbl.checkers"]) ? [] : window["rdbl.checkers"], 
+        !(window["rdbl.handlers"]) ? {} : window["rdbl.handlers"]];
 }
 
 export { getPageHandler }
