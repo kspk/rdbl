@@ -30,7 +30,7 @@ let selectContentTags = (root, includeTags, pageTagFilter) => {
     let itags =  [ "IMG", "SVG" ];
 
     // List of semantic tags, that must be selected to maintain the intended structure of the webpage.
-    let ictags = [ "H1", "H2", "H3", "H4", "H5", "H6", "TABLE", "FIGURE", "FIGCAPTION", "UL", "OL", "BLOCKQUOTE" ]
+    let ictags = [ "H1", "H2", "H3", "H4", "H5", "H6", "TABLE", "FIGURE", "FIGCAPTION", "UL", "OL", "BLOCKQUOTE", "CODE" ]
 
     // Ensure the root is initialized, and select all tags with the default selector list + page specifc selector list.
     root = root ?? document.body;

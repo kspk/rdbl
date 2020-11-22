@@ -48,6 +48,7 @@ let handlers = {
             "root": document.querySelector("#content"),
             "filter": (node) => { 
                 return node.id === "siteNotice"
+                    || node.classList.contains("mw-indicators")
                     || node.classList.contains("mw-editsection");
              }
         };

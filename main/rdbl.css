@@ -1,5 +1,5 @@
 
-body.rdbld { overflow: hidden; height: 100vh; font-size: 18px; }
+body.rdbld { overflow: hidden; height: 100vh; font-size: 18px; line-height: 1.6em; }
 body.rdbld > *:not(.rdblroot) { display: none; } 
 * { box-sizing: border-box; }
 
@@ -7,35 +7,35 @@ body.rdbld > *:not(.rdblroot) { display: none; }
 /* Handle light/dark mode */
 @media (prefers-color-scheme: dark) {
     .rdblroot {
-        background-color: #1f1f1f;
-        color: #FFFFFF;
+        background-color: #333;
+        color: #eee;
     }
-    .rdblroot * { color: #FFFFFF; }
-    .rdblroot .rdblcontent { background-color: #000000; }
+    .rdblroot *:not(a) { color: #eee; }
+    .rdblroot .rdblcontent { background-color: #1f1f1f; }
 }
 
 @media (prefers-color-scheme: light) {
     .rdblroot {
         background-color: #F1F1F1; 
-        color: #000000;
+        color: #333;
     }
-    .rdblroot * { color: #000000; }
-    .rdblroot .rdblcontent { background-color: #FFFFFF; }
+    .rdblroot *:not(a) { color: #333; }
+    .rdblroot .rdblcontent { background-color: #ffffff; }
 }
 
 .rdblroot.light {
     background-color: #F1F1F1; 
-    color: #000000;
+    color: #333;
 }
-.rdblroot.light * { color: #000000; }
+.rdblroot.light *:not(a) { color: #333; }
 .rdblroot.light .rdblcontent { background-color: #FFFFFF; }
 
 .rdblroot.dark {
-    background-color: #1f1f1f;
-    color: #FFFFFF;
+    background-color: #333;
+    color: #eee;
 }
-.rdblroot.dark * { color: #FFFFFF; }
-.rdblroot.dark .rdblcontent { background-color: #000000; }
+.rdblroot.dark *:not(a) { color: #eee; }
+.rdblroot.dark .rdblcontent { background-color: #1f1f1f; }
 /* Handle light/dark mode */
 
 
@@ -69,7 +69,7 @@ body.rdbld > *:not(.rdblroot) { display: none; }
 .rdblroot a:hover, 
 .rdblroot a:active, 
 .rdblroot a:visited {
-    color: inherit;
+    color: #639cd9;
 }
 
 .rdblcontent { 
@@ -136,6 +136,8 @@ body.rdbld > *:not(.rdblroot) { display: none; }
 .rdblcontent code {
     margin: .5rem 0;
     font-family: monospace;
+    font-size: .8rem;
+    color: orange;
 }
 
 .rdblcontent blockquote {
