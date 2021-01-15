@@ -5,7 +5,8 @@ let checkers = [
     () => { return document.domain.indexOf(".wikipedia.") >= 0 ? "wpda" : "def" },
     () => { return document.domain.indexOf("developer.mozilla.org") >= 0 ? "mdn" : "def" },
     () => { return document.domain.indexOf(".businessinsider.com") >= 0 ? "bi" : "def" },
-    () => { return document.domain.indexOf("techcrunch.com") >= 0 ? "tc" : "def" }
+    () => { return document.domain.indexOf("techcrunch.com") >= 0 ? "tc" : "def" },
+    () => { return document.domain.indexOf("quora.com") >= 0 ? "qra": "def" }
 ];
 
 let handlers = {
@@ -85,6 +86,22 @@ let handlers = {
                     || node.classList.contains("article-footer")
                     || node.classList.contains("article__related-links")
                     || node.classList.contains("screen-reader-text");
+            }
+        }
+    },
+    "qra" /* quora.com */: () => {
+        return {
+            "filter": (node) => {
+                return node.classList.contains("qu-my--small")
+                    || node.classList.contains("qu-mt--small");
+            },
+            "prerdbl": (root) => {
+                [...root.querySelectorAll('div[id$="signup_wall_wrapper"]')].forEach((d) => {
+                    d.parentElement.removeChild(d);
+                });
+            },
+            "postrdbl": (root) => {
+                document.body.classList.remove("signup_wall_prevent_scroll");
             }
         }
     },
